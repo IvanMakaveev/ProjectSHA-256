@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ShaProj.Algorithm
 {
@@ -19,23 +18,19 @@ namespace ShaProj.Algorithm
                 227, 229, 233, 239, 241, 251, 257, 263,
                 269, 271, 277, 281, 283, 293, 307, 311 };
 
-        // This converts the fractional part of each cubic root of the prime numbers to hex value
-        // Each hex value is then returned as a 32 bit numeric value
+        // This converts the fractional part of each cubic root of the prime numbers to a 32 bit numeric value
         public static IList<uint> Constants
             => PRIME_NUMBERS.Select(x => {
                 var fractional = Math.Round(Math.Pow(x, 1.0 / 3) - Math.Floor(Math.Pow(x, 1.0 / 3)), 12);
+                return (uint)Math.Floor(fractional * Math.Pow(2, 32));
+            }).ToList();
 
-                var hex = new List<string>();
 
-                for (int i = 0; i < 8; i++)
-                {
-                    var product = fractional * 16;
-                    var carry = (int)Math.Floor(product);
-                    fractional = product - carry;
-                    hex.Add(Convert.ToString(carry, toBase:16));
-                }
-
-                return Convert.ToUInt32(string.Join("", hex), 16);
+        // This converts the fractional part of each square root of the first 8 prime numbers to a 32 bit numeric value
+        public static IList<uint> InitialStateRegisters
+            => PRIME_NUMBERS.Take(8).Select(x => {
+                var fractional = Math.Round(Math.Sqrt(x) - Math.Floor(Math.Sqrt(x)), 12);
+                return (uint)Math.Floor(fractional * Math.Pow(2, 32));
             }).ToList();
     }
 }

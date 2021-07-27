@@ -1,5 +1,6 @@
 ﻿// System Libraries
 using System;
+using System.Collections.Generic;
 
 // Downloaded Libraries
 using Figgle;
@@ -12,10 +13,10 @@ namespace ShaProj
     class Program
     {
         // A SandBox for testing methods
-        static uint SandBox()
+        static IList<uint> SandBox()
         {
             // Expected output: 0b11110001111111111100011110000000
-            return ShaFunctions.LowerSigmaZero(0b00000000000000000011111111111111);
+            return ShaConstants.Constants;
         }
 
         // Format the output of the SandBox
@@ -26,7 +27,10 @@ namespace ShaProj
             Console.WriteLine();
 
             var res = SandBox();
-            Console.WriteLine(GetBinaryValue(res));
+            foreach (var item in res)
+            {
+                Console.WriteLine(GetBinaryValue(item));
+            }
 
             Console.WriteLine();
             Console.WriteLine(new string('=', 120));
@@ -35,7 +39,7 @@ namespace ShaProj
         // Turns a 32 bit value into a string in binary format
         static string GetBinaryValue(uint number)
         {
-            return Convert.ToString(number, toBase: 2).PadLeft(32, '0');
+            return Convert.ToString(number, toBase: 16).PadLeft(8, '0');
         }
     }
 }
