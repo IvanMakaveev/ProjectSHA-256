@@ -14,7 +14,8 @@ namespace ShaProj
         // A SandBox for testing methods
         static uint SandBox()
         {
-            return BitOperations.Shift(0b00000000111111110000000011111111, 8);
+            // Expected output: 0b11110001111111111100011110000000
+            return ShaFunctions.LowerSigmaZero(0b00000000000000000011111111111111);
         }
 
         // Format the output of the SandBox

@@ -8,6 +8,20 @@ namespace ShaProj.Algorithm
     {
         private const byte DEFAULT_WORD_SIZE = 32;
 
+        // Creates a new word (32 bit value) based on the majority of values for each bit in the three given words
+        public static uint Majority(uint firstWord, uint secondWord, uint thirdWord)
+        {
+            return (firstWord & secondWord) | (secondWord & thirdWord) | (thirdWord & firstWord);
+        }
+
+        // Creates a new word (32 bit value) based on the bits in the first and second word
+        // For each bit with a value of 1 in the mask word, it takes a bit from the first word
+        // For each bit with a value of 0 in the mask word, it takes a bit from the second word
+        public static uint Choose(uint maskWord, uint firstWord, uint secondWord)
+        {
+            return (maskWord & firstWord) ^ (~maskWord & secondWord);
+        }
+
         // Adds all words (32 bit values) and returns the sum without the overflowing bits
         public static uint Add(params uint[] words)
         {
